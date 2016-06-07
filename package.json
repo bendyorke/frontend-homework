@@ -1,0 +1,47 @@
+{
+  "name": "invoicer",
+  "version": "1.0.0",
+  "description": "As part of our application process, we'd like to see what you can produce by giving you a small assignment. It should take you no more than a few hours to complete the assignment, but any extra polish or features you might want to put in will not go unnoticed.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --hot --inline --no-info",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bendyorke/frontend-homework.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bendyorke/frontend-homework/issues"
+  },
+  "homepage": "https://github.com/bendyorke/frontend-homework#readme",
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "babel-core": "^6.9.1",
+    "babel-eslint": "^6.0.4",
+    "babel-loader": "^6.2.4",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.11.1",
+    "eslint-plugin-react": "^5.1.1",
+    "postcss-loader": "^0.9.1",
+    "postcss-nested": "^1.0.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1",
+    "whatwg-fetch": "^1.0.0"
+  }
+}

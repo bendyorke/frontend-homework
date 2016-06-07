@@ -1,0 +1,75 @@
+{:schema
+ [;; Invoice Type ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  {:db/id #db/id[:db.part/db]
+   :db/ident :invoice/next
+   :db/valueType :db.type/long
+   :db/cardinality :db.cardinality/one
+   :db/doc "Next invoice number"
+   :db/noHistory true
+   :db.install/_attribute :db.part/db}
+  {:db/id #db/id[:db.part/db]
+   :db/ident :invoice/number
+   :db/valueType :db.type/long
+   :db/cardinality :db.cardinality/one
+   :db/doc "Running invoice number"
+   :db/unique :db.unique/identity
+   :db.install/_attribute :db.part/db}
+  {:db/id #db/id[:db.part/db]
+   :db/ident :invoice/due-date
+   :db/valueType :db.type/instant
+   :db/cardinality :db.cardinality/one
+    :db/doc "Date the invoice is due"
+   :db.install/_attribute :db.part/db}
+  {:db/id #db/id[:db.part/db]
+   :db/ident :invoice/notes
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Notes section for the invoice"
+   :db.install/_attribute :db.part/db}
+  {:db/id #db/id[:db.part/db]
+   :db/ident :invoice/recipient
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Email for the recipient of the invoice"
+   :db.install/_attribute :db.part/db}
+  ;; Line Item Type ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  {:db/id #db/id[:db.part/db]
+   :db/ident :line-item/invoice
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one
+   :db/doc "Invoice the line item is listed on"
+   :db.install/_attribute :db.part/db}
+  {:db/id #db/id[:db.part/db]
+   :db/ident :line-item/qty
+   :db/valueType :db.type/float
+   :db/cardinality :db.cardinality/one
+   :db/doc "Quantity of the provided line item"
+   :db.install/_attribute :db.part/db}
+  {:db/id #db/id[:db.part/db]
+   :db/ident :line-item/title
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Description of the line item"
+   :db.install/_attribute :db.part/db}
+  {:db/id #db/id[:db.part/db]
+   :db/ident :line-item/cost
+   :db/valueType :db.type/long
+   :db/cardinality :db.cardinality/one
+   :db/doc "Cost of the unit per price in cents"
+   :db.install/_attribute :db.part/db}
+  ;; Transaction Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  {:db/id #db/id [:db.part/user]
+    :db/ident :number
+    :db/doc "Function that returns the next id for an invoice."
+    :db/fn #db/fn {:lang "clojure"
+                  :params [db id]
+                  :code (let [[e n] (datomic.api/q '[:find [?e ?n]
+                                                      :where [?e :invoice/next ?n]]
+                                                    db)]
+                          [[:db/add id :invoice/number n]
+                            [:db/add e :invoice/next (inc n)]])}}
+ ]
+ :seed
+ [;; Seed Data ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  {:db/id #db/id [:db.part/user]
+   :invoice/next 1}]}
