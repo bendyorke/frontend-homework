@@ -16,7 +16,7 @@ exports.module = {
     {
       test: /\.css/,
       exclude: /node_nodules/,
-      loader: 'style!css?modules&localIdentName=[name]_[local]_[hash:base64:5]?postcss',
+      loader: 'style!css?modules&localIdentName=[name]_[local]_[hash:base64:5]!postcss',
     },
   ],
 }
