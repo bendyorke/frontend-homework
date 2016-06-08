@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+}
+
+.cell {
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.headingContainer {
+  composes: container;
+
+  & > * {
+    font-weight: bold;
+    text-align: center !important;
+  }
+}
+
+.standardContainer {
+  composes: container;
+}
+
+.number {
+  composes: cell;
+  flex: 1;
+  text-align: right;
+}
+
+.notes {
+  composes: cell;
+  flex: 3;
+}
+
+.total {
+  composes: cell;
+  flex: 1;
+  text-align: right;
+}

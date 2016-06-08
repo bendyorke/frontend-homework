@@ -18,7 +18,7 @@
    :db/ident :invoice/due-date
    :db/valueType :db.type/instant
    :db/cardinality :db.cardinality/one
-    :db/doc "Date the invoice is due"
+   :db/doc "Date the invoice is due"
    :db.install/_attribute :db.part/db}
   {:db/id #db/id[:db.part/db]
    :db/ident :invoice/notes
