@@ -18,7 +18,12 @@ class ShowInvoices extends Component {
   render() {
     return (
       <div>
+        <h1>Show Invoices</h1>
+
+        {/* HEADER */}
         <Invoice />
+
+        {/* INVOICES */}
         {this.props.invoiceList.map(invoice => (
           <Invoice {...invoice} key={invoice.id} />
         ))}

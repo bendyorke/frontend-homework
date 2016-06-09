@@ -1,0 +1,106 @@
+.header {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: space-between;
+  height: 170px;
+}
+
+.footer {
+  margin-top: 24px;
+  display: flex;
+}
+
+.recipient {
+  flex: 1 1 50px;
+  width: 48%;
+}
+
+.dueDate {
+  flex: 1 1 50px;
+  width: 48%;
+}
+
+.notes {
+  flex: 1 1 100px;
+  width: 48%;
+}
+
+.notesField {
+  height: 121px;
+}
+
+.field {
+  margin: 8px 0;
+}
+
+.error {
+  color: darkred;
+  margin: 0 2px;
+  font-size: 12px;
+}
+
+.qty {
+  flex: 1;
+  text-align: right;
+}
+
+.description {
+  flex: 5;
+
+  textarea {
+    height: 36px;
+  }
+}
+
+.cost {
+  flex: 1;
+  text-align: right;
+}
+
+.total {
+  flex: 1;
+  padding: 16px 0;
+  text-align: right;
+}
+
+.grandTotal {
+  flex: 1;
+}
+
+.label {
+  color: #888;
+  font-size: 12px;
+  display: block;
+  text-align: left;
+  text-transform: uppercase;
+  padding: 0 0 4px;
+  margin: 0 2px 4px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #888;
+}
+
+.lineItem {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: stretch;
+  align-content: stretch;
+  border-bottom: 1px solid #ccc;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  > *:not(:last-child) {
+    margin-right: 4px;
+  }
+
+  label {
+    display: none;
+  }
+}
+
+.lineItemHeader {
+  composes: lineItem;
+  border: none;
+  margin-top: 24px;
+}

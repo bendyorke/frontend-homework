@@ -1,3 +1,11 @@
+export function hyphenate(string) {
+  return string.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+}
+
+export function camelize(string) {
+  return string.replace(/(-.)/g, x => x.slice(1).toUpperCase())
+}
+
 /**
  * @param {String} entity - name to prefix attributes with
  * @param {Object} attrs  - attributes of the to-be entity
@@ -9,9 +17,13 @@
  * eg: toEntity('foo', {bar: 'baz'}) => {'foo/bar': 'baz'}
  */
 export function toEntity(entity, attrs) {
-  return Object.entries(attrs).reduce((memo, [key, value]) => (
-    { ...memo, [entity + '/' + key]: value }
-  ), {})
+  return Object.keys(attrs).reduce((memo, key) => {
+    const namespaced = ['id', 'db/id'].indexOf(key) > -1
+      ? 'db/id'
+      : entity + '/' + hyphenate(key)
+
+    return { ...memo, [namespaced]: attrs[key] }
+  }, {})
 }
 
 /**
@@ -25,7 +37,7 @@ export function toEntity(entity, attrs) {
  */
 export function parseEntity(entity, attrs) {
   const exp = new RegExp('^(?:db|' + entity + ')\/')
-  return Object.entries(attrs).reduce((memo, [key, value]) => (
-    exp.test(key) ? { ...memo, [key.replace(exp, '')]: value } : memo
+  return Object.keys(attrs).reduce((memo, key) => (
+    exp.test(key) ? { ...memo, [camelize(key.replace(exp, ''))]: attrs[key] } : memo
   ), {})
 }

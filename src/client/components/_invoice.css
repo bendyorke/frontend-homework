@@ -26,7 +26,12 @@
   text-align: right;
 }
 
-.notes {
+.status {
+  composes: cell;
+  flex: 1;
+}
+
+.recipient {
   composes: cell;
   flex: 3;
 }
@@ -35,4 +40,9 @@
   composes: cell;
   flex: 1;
   text-align: right;
+}
+
+.actions {
+  composes: cell;
+  flex: 1;
 }
