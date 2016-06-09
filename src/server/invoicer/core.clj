@@ -12,17 +12,18 @@
 (def dev? (= "development" (get (System/getenv) "CLJ_ENV" "development")))
 
 (defroutes routes
-  (GET "/" []
-    (let [file (str "public/index" (if dev? ".dev" "") ".html")]
-      (io/resource file)))
   (context "/api" []
     (GET "/invoices" []
       (response (q/all-invoices (db))))
     (POST "/invoices" {params :params}
-      (let [tx @(t/create-invoice (conn) params)
+      (let [inv (update-in params [:invoice/line-items] (partial map #(update % :line-item/qty float)))
+            tx @(t/create-invoice (conn) inv)
             id (-> tx :tempids vals first)]
         (response (d/pull (:db-after tx) '[*] id)))))
-  (resources "/"))
+  (resources "/")
+  (GET "*" []
+    (let [file (str "public/index" (if dev? ".dev" "") ".html")]
+      (io/resource file))))
 
 (def handler
   (-> routes

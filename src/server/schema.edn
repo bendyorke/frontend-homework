@@ -16,9 +16,9 @@
    :db.install/_attribute :db.part/db}
   {:db/id #db/id[:db.part/db]
    :db/ident :invoice/due-date
-   :db/valueType :db.type/instant
+   :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
-   :db/doc "Date the invoice is due"
+   :db/doc "Date the invoice is due (ISO Format)"
    :db.install/_attribute :db.part/db}
   {:db/id #db/id[:db.part/db]
    :db/ident :invoice/notes
@@ -32,13 +32,14 @@
    :db/cardinality :db.cardinality/one
    :db/doc "Email for the recipient of the invoice"
    :db.install/_attribute :db.part/db}
-  ;; Line Item Type ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   {:db/id #db/id[:db.part/db]
-   :db/ident :line-item/invoice
+   :db/ident :invoice/line-items
    :db/valueType :db.type/ref
-   :db/cardinality :db.cardinality/one
+   :db/cardinality :db.cardinality/many
+   :db/isComponent true
    :db/doc "Invoice the line item is listed on"
    :db.install/_attribute :db.part/db}
+  ;; Line Item Type ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   {:db/id #db/id[:db.part/db]
    :db/ident :line-item/qty
    :db/valueType :db.type/float
@@ -46,7 +47,7 @@
    :db/doc "Quantity of the provided line item"
    :db.install/_attribute :db.part/db}
   {:db/id #db/id[:db.part/db]
-   :db/ident :line-item/title
+   :db/ident :line-item/description
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
    :db/doc "Description of the line item"
