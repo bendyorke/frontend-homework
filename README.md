@@ -25,3 +25,11 @@ $ npm start
 ```
 
 You can now open `localhost:5888/`
+
+To run all the tests, run:
+
+```
+$ npm test -- test/
+```
+
+or pass it a path to a specific file/directory.
