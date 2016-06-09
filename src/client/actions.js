@@ -17,6 +17,7 @@ export function updateInvoice(payload) {
 export function createInvoice() {
   return (dispatch, getState) => {
     const { errors, lineItems, ...invoice } = getState().invoice
+
     invoice.lineItems = Object
       .values(lineItems)
       .slice(0, -1)

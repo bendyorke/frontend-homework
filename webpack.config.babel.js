@@ -1,4 +1,5 @@
 import path from 'path'
+import webpack from 'webpack'
 
 exports.entry = ['./src/client/polyfills.js', './src/client']
 
@@ -32,3 +33,7 @@ exports.postcss = () => [
   require('autoprefixer'),
   require('postcss-nested'),
 ]
+
+exports.plugins = process.env.NODE_ENV === 'production'
+  ? [new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'})]
+  : []

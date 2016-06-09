@@ -47,9 +47,9 @@ export function invoice(state = initInvoice, action) {
 
       // Toggle the field error on the global state
       if (error) {
-        errors[name] = error
+        errors[lineItem + '/' + name] = error
       } else {
-        delete errors[name]
+        delete errors[lineItem + '/' + name]
       }
 
       // Set the appropriate value on the appropriate attribute

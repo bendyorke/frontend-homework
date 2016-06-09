@@ -5,7 +5,7 @@ import { date } from 'lib/types'
 import styles from 'components/_edit.css'
 import Field from 'components/Field'
 import EditLineItem from 'components/EditLineItem'
-import { invoiceTotal } from 'lib/util'
+import { invoiceTotal, isBlankLineItem } from 'lib/util'
 
 const mapState = state => ({
   lineItems: state.invoice.lineItems,
@@ -45,7 +45,7 @@ class EditInvoice extends Component {
     const lastId = Object.keys(lineItems).sort((a, b) => parseInt(a) - parseInt(b))[0]
     const last = lastId && lineItems[lastId]
 
-    if (!last || Object.values(last).filter(x => x !== '').length > 0) newLineItem()
+    if (!last || !isBlankLineItem(last)) newLineItem()
   }
 
   grandTotal() {

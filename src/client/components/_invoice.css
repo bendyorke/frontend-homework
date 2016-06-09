@@ -1,5 +1,9 @@
 .container {
   display: flex;
+
+  & > * {
+    text-align: center;
+  }
 }
 
 .cell {
@@ -12,7 +16,6 @@
 
   & > * {
     font-weight: bold;
-    text-align: center !important;
   }
 }
 
@@ -23,7 +26,6 @@
 .number {
   composes: cell;
   flex: 1;
-  text-align: right;
 }
 
 .status {
@@ -39,7 +41,6 @@
 .total {
   composes: cell;
   flex: 1;
-  text-align: right;
 }
 
 .actions {

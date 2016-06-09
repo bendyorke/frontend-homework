@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --inline --no-info",
+    "build": "NODE_ENV=production webpack -p",
     "test": "NODE_PATH=./src/client:$NODE_PATH ava"
   },
   "repository": {

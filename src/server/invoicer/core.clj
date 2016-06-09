@@ -1,13 +1,15 @@
 (ns invoicer.core
   (:require [compojure.core :refer [defroutes context GET POST]]
             [compojure.route :refer [resources]]
+            [org.httpkit.server :refer [run-server]]
             [clojure.java.io :as io]
             [ring.middleware.format :refer [wrap-restful-format]]
             [ring.util.response :refer [response]]
             [invoicer.db :refer [conn db]]
             [invoicer.queries :as q]
             [invoicer.transactions :as t]
-            [datomic.api :as d]))
+            [datomic.api :as d])
+  (:gen-class))
 
 (def dev? (= "development" (get (System/getenv) "CLJ_ENV" "development")))
 
@@ -28,3 +30,6 @@
 (def handler
   (-> routes
       (wrap-restful-format :formats [:json-kw])))
+
+(defn -main []
+  (run-server handler {:port 5888}))

@@ -12,3 +12,14 @@ export function invoiceTotal({lineItems}) {
     return memo
   }, 0)
 }
+
+/**
+ * Blank line items are objects without an id and with all falsey
+ * values.  If it is a falsey value, then it is not a line item.
+ */
+export function isBlankLineItem(lineItem) {
+  if (!lineItem) return false
+  if (Object.keys(lineItem).find(x => x === 'id')) return false
+  if (Object.keys(lineItem).filter(x => lineItem[x] !== '').length) return false
+  return true
+}

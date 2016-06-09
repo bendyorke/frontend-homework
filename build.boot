@@ -12,6 +12,15 @@
 
 (require '[pandeiro.boot-http :refer [serve]])
 
+(task-options!
+ pom {:project 'invoicer
+      :version "1.0.0"}
+ aot {:namespace '#{invoicer.core}}
+ jar {:main 'invoicer.core
+      :manifest {"Description" "Simple invoice application"
+                 "Url" "https://github.com/bendyorke/invoicer"}}
+ target {:dir #{"target"}})
+
 (deftask dev [p port VAL int "Port to run server on, defaults to 5888"]
   (println *clojure-version*)
   (comp (serve :handler 'invoicer.core/handler
@@ -19,3 +28,6 @@
                :port    (or port 5888))
         (watch)
         (repl :server true)))
+
+(deftask build []
+  (comp (aot) (pom) (uber) (jar) (target)))

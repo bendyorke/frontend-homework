@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as types from 'lib/types'
 import styles from 'components/_edit.css'
 import { updateInvoice } from 'actions'
+import { isBlankLineItem } from 'lib/util'
 
 const mapState = state => ({
   invoice: state.invoice,
@@ -29,17 +30,18 @@ class Field extends Component {
   }
 
   handleChange = persistInput => e => {
-    const { lineItem, type, name, updateInvoice } = this.props
+    const { lineItem: lineItemId, invoice, type, name, updateInvoice } = this.props
     const { validate, serialize } = types[type] || {}
+    const lineItem = invoice.lineItems[lineItemId]
     const value = e.target.value
-    const error = !!validate && validate(value)
+    const error = !!validate && !isBlankLineItem(lineItem) && validate(value)
 
     this.setState({error, value: persistInput ? value : null})
 
     updateInvoice({
       name,
-      lineItem,
-      value: !error && serialize ? serialize(value) : value,
+      lineItem: lineItemId,
+      value: !error && serialize && value !== '' ? serialize(value) : value,
       error,
     })
   }
