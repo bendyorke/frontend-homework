@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { createInvoice, newLineItem } from 'actions'
-import { date } from 'lib/types'
-import styles from 'components/_edit.css'
-import Field from 'components/Field'
-import EditLineItem from 'components/EditLineItem'
+import { loadInvoice, createInvoice, newLineItem } from 'actions'
+import styles from 'components/_invoice.css'
+import Invoice from 'components/Invoice'
 import { invoiceTotal, isBlankLineItem } from 'lib/util'
 
 const mapState = state => ({
@@ -12,14 +10,19 @@ const mapState = state => ({
   valid: Object.keys(state.invoice.errors).length === 0,
 })
 
-const mapDispatch = { createInvoice, newLineItem }
+const mapDispatch = { loadInvoice, createInvoice, newLineItem }
 
 class EditInvoice extends Component {
   static propTypes = {
+    loadInvoice: PropTypes.func,
     createInvoice: PropTypes.func,
     newLineItem: PropTypes.func,
     lineItems: PropTypes.object,
     valid: PropTypes.bool,
+  }
+
+  state = {
+    error: null,
   }
 
   handleSubmit = e => {
@@ -29,7 +32,8 @@ class EditInvoice extends Component {
     if (!valid) return
 
     this.props.createInvoice()
-    window.location = window.location.origin
+      .then(() => window.location = window.location.origin)
+      .catch(res => this.setState({error: res.statusText}))
   }
 
   componentWillMount() {
@@ -57,50 +61,21 @@ class EditInvoice extends Component {
   }
 
   render() {
-    const { valid, lineItems } = this.props
+    const { valid } = this.props
+    const { error } = this.state
 
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <h1>Create Invoice</h1>
 
-          {/* HEADER */}
-          <div className={styles.header}>
-            <Field className={styles.recipient} name="recipient" type="email">
-              <input placeholder="email@domain.com"/>
-            </Field>
-            <Field className={styles.dueDate} name="due-date" type="date">
-              <input placeholder={date.deserialize(new Date().toISOString())} />
-            </Field>
-            <Field className={styles.notes} name="notes">
-              <textarea className={styles.notesField} placeholder="Notes..."/>
-            </Field>
-          </div>
-
-          {/* LINE ITEMS */}
-          <div className={styles.lineItemHeader}>
-            <div className={styles.qty+' '+styles.label}>Qty.</div>
-            <div className={styles.description+' '+styles.label}>Description</div>
-            <div className={styles.cost+' '+styles.label}>Price</div>
-            <div className={styles.total+' '+styles.label}>Amount</div>
-          </div>
-
-          <div>
-            {Object.entries(lineItems).map(([id, li]) => (
-              <EditLineItem {...li} id={parseInt(id)} key={id}/>
-            ))}
-          </div>
-
-          {/* TOTAL */}
-          <div className={styles.footer}>
-            <div style={{flex: 7}} />
-            <Field className={styles.grandTotal} name="Total">
-              <output>{this.grandTotal()}</output>
-            </Field>
-          </div>
+          <Invoice editable={true} />
 
           {/* SUBMIT */}
           <input type="submit" disabled={!valid}/>
+
+          {/* ERROR */}
+          <div className={styles.error}>{error}</div>
         </form>
       </div>
     )

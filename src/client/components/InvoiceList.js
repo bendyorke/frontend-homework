@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Invoice from 'components/Invoice'
+import InvoiceRow from 'components/InvoiceRow'
 
 const mapState = state => ({
   invoiceList: state.invoiceList,
 })
 
-class ShowInvoices extends Component {
+class InvoiceList extends Component {
   static propTypes = {
     invoiceList: PropTypes.array,
   }
@@ -21,15 +21,15 @@ class ShowInvoices extends Component {
         <h1>Show Invoices</h1>
 
         {/* HEADER */}
-        <Invoice />
+        <InvoiceRow />
 
         {/* INVOICES */}
         {this.props.invoiceList.map(invoice => (
-          <Invoice {...invoice} key={invoice.id} />
+          <InvoiceRow {...invoice} key={invoice.id} />
         ))}
       </div>
     )
   }
 }
 
-export default connect(mapState)(ShowInvoices)
+export default connect(mapState)(InvoiceList)

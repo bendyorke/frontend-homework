@@ -20,7 +20,9 @@
   "homepage": "https://github.com/bendyorke/frontend-homework#readme",
   "dependencies": {
     "react": "^15.1.0",
+    "react-addons-css-transition-group": "^15.1.0",
     "react-dom": "^15.1.0",
+    "react-icons": "^2.1.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",

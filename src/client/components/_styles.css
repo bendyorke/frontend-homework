@@ -3,7 +3,7 @@ html, body {
   padding: 0;
 }
 
-input, textarea, output {
+input, textarea, .output {
   display: block;
   border: none;
   border-radius: 4px;
@@ -12,7 +12,9 @@ input, textarea, output {
   width: 100%;
   box-sizing: border-box;
   margin: 0;
+}
 
+input, textarea {
   &:hover:not(:focus) {
     background: #eee;
   }
@@ -55,4 +57,35 @@ input[type=submit] {
 .home {
   text-decoration: none;
   font-size: 24px;
+}
+
+.icon {
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  margin: 0 4px;
+  box-sizing: border-box;
+  color: black;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: inline-flex;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.staticIcon {
+  composes: icon;
+}
+
+.actionIcon {
+  composes: icon;
+
+  &:hover:not(:disabled) {
+    cursor: pointer;
+    background: #eee;
+    color: #333;
+  }
 }

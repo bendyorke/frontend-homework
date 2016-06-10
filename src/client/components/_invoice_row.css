@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+
+  & > * {
+    text-align: center;
+  }
+}
+
+.cell {
+  padding: 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.headingContainer {
+  composes: container;
+
+  & > * {
+    font-weight: bold;
+  }
+}
+
+.standardContainer {
+  composes: container;
+}
+
+.number {
+  composes: cell;
+  flex: 1;
+}
+
+.status {
+  composes: cell;
+  flex: 1;
+}
+
+.recipient {
+  composes: cell;
+  flex: 3;
+}
+
+.total {
+  composes: cell;
+  flex: 1;
+}
+
+.actions {
+  composes: cell;
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

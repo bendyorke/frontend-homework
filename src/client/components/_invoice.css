@@ -1,49 +1,107 @@
-.container {
+.header {
   display: flex;
-
-  & > * {
-    text-align: center;
-  }
+  flex-flow: column wrap;
+  align-content: space-between;
+  height: 170px;
 }
 
-.cell {
-  padding: 12px;
-  box-sizing: border-box;
-}
-
-.headingContainer {
-  composes: container;
-
-  & > * {
-    font-weight: bold;
-  }
-}
-
-.standardContainer {
-  composes: container;
-}
-
-.number {
-  composes: cell;
-  flex: 1;
-}
-
-.status {
-  composes: cell;
-  flex: 1;
+.footer {
+  margin-top: 24px;
+  display: flex;
 }
 
 .recipient {
-  composes: cell;
-  flex: 3;
+  flex: 1 1 50px;
+  width: 48%;
+}
+
+.dueDate {
+  flex: 1 1 50px;
+  width: 48%;
+}
+
+.notes {
+  flex: 1 1 100px;
+  width: 48%;
+}
+
+.notesField {
+  height: 121px;
+}
+
+.field {
+  margin: 8px 0;
+}
+
+.error {
+  color: darkred;
+  margin: 0 2px;
+  font-size: 12px;
+}
+
+.qty {
+  flex: 1;
+  text-align: right;
+}
+
+.description {
+  flex: 5;
+
+  textarea {
+    height: 36px;
+  }
+}
+
+.cost {
+  flex: 1;
+  text-align: right;
 }
 
 .total {
-  composes: cell;
   flex: 1;
+  padding: 16px 0;
+  text-align: right;
 }
 
-.actions {
-  composes: cell;
+.grandTotal {
   flex: 1;
+  text-align: right;
+}
+
+.label {
+  color: #888;
+  font-size: 12px;
+  display: block;
+  text-align: left;
+  text-transform: uppercase;
+  padding: 0 0 4px;
+  margin: 0 2px 4px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #888;
+}
+
+.lineItem {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: stretch;
+  align-content: stretch;
+  border-bottom: 1px solid #ccc;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  > *:not(:last-child) {
+    margin-right: 4px;
+  }
+
+  label {
+    display: none;
+  }
+}
+
+.lineItemHeader {
+  composes: lineItem;
+  border: none;
+  margin-top: 24px;
 }

@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import Field from 'components/Field'
-import styles from 'components/_edit.css'
+import styles from 'components/_invoice.css'
 import { lineItemTotal } from 'lib/util'
 
-class EditLineItem extends Component {
+class LineItem extends Component {
   static propTypes = {
     id: PropTypes.number,
     qty: PropTypes.number,
     description: PropTypes.string,
     cost: PropTypes.number,
+    Field: PropTypes.func,
   }
 
   resizeDescription = e => {
@@ -24,6 +23,7 @@ class EditLineItem extends Component {
   }
 
   render() {
+    const { Field } = this.props
     return (
       <div className={styles.lineItem}>
         <Field name="qty" lineItem={this.props.id} className={styles.qty} type="number">
@@ -43,4 +43,4 @@ class EditLineItem extends Component {
   }
 }
 
-export default EditLineItem
+export default LineItem

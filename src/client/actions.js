@@ -1,5 +1,17 @@
 import { toEntity } from 'lib/datomic'
 
+export function loadInvoice(number) {
+  return (dispatch, getState) => {
+    const payload = () => getState().invoiceList.find(i => i.number == number)
+
+    return dispatch({
+      type: 'LOAD_INVOICE',
+      payload,
+      number,
+    })
+  }
+}
+
 export function newLineItem() {
   return {
     type: 'NEW_LINE_ITEM',
@@ -32,7 +44,7 @@ export function createInvoice() {
       body: JSON.stringify(toEntity('invoice', invoice)),
     }).then(data => data.json())
 
-    dispatch({
+    return dispatch({
       type: 'CREATE_INVOICE',
       payload,
     })
@@ -50,10 +62,11 @@ export function fetchInvoices() {
 }
 
 export function init() {
-  return dispatch => ({
+  return dispatch => dispatch({
     type: 'INIT',
+    eager: true,
     payload: Promise.all([
-      dispatch(fetchInvoices()),
+      dispatch({ ...fetchInvoices(), eager: true }),
     ]),
   })
 }

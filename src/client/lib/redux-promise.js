@@ -41,7 +41,12 @@ const promiseMiddleware = store => {
 
     if (isPromise(payload)) {
       payload.then(
-        data => dispatch({ type: type + '_SUCCESS', payload: data, ...options}),
+        /**
+         * Catch fetch errors
+         */
+        data => data.ok !== false
+              ? dispatch({ type: type + '_SUCCESS', payload: data, ...options})
+              : dispatch({ type: type + '_FAILURE', payload: data, ...options}, data.statusText),
         data => dispatch({ type: type + '_FAILURE', payload: data, ...options}, data)
       )
 

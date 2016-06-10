@@ -32,6 +32,20 @@ const initInvoice = {
 
 export function invoice(state = initInvoice, action) {
   switch(action.type) {
+    case 'LOAD_INVOICE':
+      if (action.payload()) {
+        return {
+          ...initInvoice,
+          ...action.payload(),
+        }
+      } else {
+        return {
+          ...initInvoice,
+          number: action.number,
+          errors: {notFound: true},
+        }
+      }
+
     case 'NEW_LINE_ITEM':
       return {
         ...state,

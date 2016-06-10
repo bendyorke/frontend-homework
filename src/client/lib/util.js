@@ -1,3 +1,7 @@
+export function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLocaleLowerCase()
+}
+
 export function lineItemTotal({qty, cost}) {
   if (typeof qty === 'number' || typeof cost === 'number') {
     return ((qty || 0) * (cost || 0)) / 100
